@@ -18,6 +18,7 @@ lecture_file.write("""<!-- Style sheet -->
 
 lecture_file.write('<!-- Date -->\n')
 lecture_file.write(datetime.date.today().strftime("%d/%B/%Y\n"))
+lecture_file.write('<hr/>')
 
 lecture_title = ' '.join(argv[1:])
 lecture_file.write('<title>' + lecture_title + '</title>')
