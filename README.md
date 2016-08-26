@@ -23,6 +23,9 @@ $ lm-archive-course
 $ ls
 lecture001.html  lecture002.html  network-service-management-archive.html  style.css
 ```
+This is how the archive looks like:
+
+![Image](http://i.imgur.com/4SOXvzj.png)
 
 # Installing
 
