@@ -1,24 +1,21 @@
+.POSIX:
+.PHONY: install uninstall
+
+PREFIX ?= /usr/local
 
 install:
-
-	# Remove directory from possible previous installation
 	rm -rf ~/.lecture-manager
-
-	# Create directory 
 	mkdir ~/.lecture-manager
-
-	# Copy stylesheet to the directory
 	cp style.css ~/.lecture-manager/style.css
-	
-	# After these lines are executed, the python scripts can 
-	# be ran as if they were executables
-	cp lm-new-lecture.py    /usr/local/bin/lm-new-lecture
-	cp lm-new-course.py     /usr/local/bin/lm-new-course
-	cp lm-archive-course.py /usr/local/bin/lm-archive-course
-
-	# Change permissions
-	chmod +x /usr/local/bin/lm-new-lecture /usr/local/bin/lm-new-course /usr/local/bin/lm-archive-course
+	cp lm-archive-course.py ${PREFIX}/bin/lm-archive-course
+	cp lm-new-course.py     ${PREFIX}/bin/lm-new-course
+	cp lm-new-lecture.py    ${PREFIX}/bin/lm-new-lecture
+	chmod +x ${PREFIX}/bin/lm-archive-course\
+	         ${PREFIX}/bin/lm-new-course\
+	         ${PREFIX}/bin/lm-new-lecture
 
 uninstall:
-	# Clean installation products
-	rm /usr/local/bin/lm-new-lecture /usr/local/bin/lm-new-course /usr/local/bin/lm-archive-course
+	rm -f ${PREFIX}/bin/lm-archive-course\
+	      ${PREFIX}/bin/lm-new-course\
+	      ${PREFIX}/bin/lm-new-lecture
+
