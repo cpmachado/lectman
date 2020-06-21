@@ -1,13 +1,15 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
-from ConfigParser import SafeConfigParser
-from sys import argv
+""" module to create course lecture """
+
+import configparser
+import sys
 import datetime
 
-config = SafeConfigParser()
+config = configparser.ConfigParser()
 config.read('.config.ini')
 
-lecture_number = int(config.get('config','lecture-number')) + 1
+lecture_number = int(config['config']['lecture-number']) + 1
 config.set('config', 'lecture-number', str(lecture_number))
 
 lecture_file_name = 'lecture' + str(lecture_number).zfill(3) + '.html'
@@ -20,10 +22,10 @@ lecture_file.write('<!-- Date -->\n')
 lecture_file.write(datetime.date.today().strftime("%d/%B/%Y\n"))
 lecture_file.write('<hr/>')
 
-lecture_title = ' '.join(argv[1:])
+lecture_title = ' '.join(sys.argv[1:])
 lecture_file.write('<title>' + lecture_title + '</title>')
 
 config.set('course-index', str(lecture_number), lecture_title)
 
 with open('.config.ini', 'w') as config_file:
-	config.write(config_file)
+    config.write(config_file)
