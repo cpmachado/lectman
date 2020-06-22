@@ -5,26 +5,35 @@
 import configparser
 import datetime
 
-config = configparser.ConfigParser()
-config.read('.config.ini')
+def archive_template(course_name, course_list):
+    """ html template """
+    TITLE = f'<title> {course_name}\'s index </title>'
+    STYLESHEET = '<link rel="stylesheet" type="text/css" href="style.css">'
+    H1TITLE = f'<h1>Course: {course_name}</h1>'
+    LIST_TITLE = '<h1>Lecture index: </h1>'
+    tuplify = (lambda i: (i, course_list[i]))
+    itemify = (lambda t: \
+            f'\t<li><a href=\"lecture{t[0].zfill(3)}.html\">{t[1]}</a></li>')
+    course_list_s = list(map(tuplify, course_list))
+    INDEX_LIST = '\n'.join([
+        '<ol>',
+        '\n'.join(list(map(itemify, course_list_s))),
+        '</ol>'
+    ])
+    DATE = datetime.date.today().strftime("%d/%B/%Y");
+    DATE_SIG = f'<p> Last updated: {DATE}</p>\n'
 
-course_name = config.get('config', 'course-name')
-course_file = open(course_name + '-archive.html', 'w')
+    return '\n'.join([TITLE, STYLESHEET, H1TITLE, \
+            LIST_TITLE, INDEX_LIST, DATE_SIG])
 
-course_file.write('<title> ' + course_name + '\'s index </title>')
-course_file.write("""<!-- Style sheet -->
-<link rel="stylesheet" type="text/css" href="style.css">\n""")
+def main():
+    """ main function for archive """
+    config = configparser.ConfigParser()
+    config.read('.config.ini')
+    course_name = config['config']['course-name']
+    course_list = config['course-index']
+    course_file = open(f'{course_name}-archive.html', 'w')
+    course_file.write(archive_template(course_name, course_list))
 
-course_file.write('<h1>Course: ' + course_name + '</h1>\n')
-course_file.write('<h1>Lecture index: </h1>')
-
-course_file.write('<ol>\n')
-
-for lecture_number in config['course-index']:
-    lecture_title = config['course-index'][lecture_number]
-    course_file.write('\t<li><a href=\"lecture')
-    course_file.write(str(lecture_number).zfill(3))
-    course_file.write('.html\"">' + lecture_title + '</a></li>\n')
-
-course_file.write('</ol>\n')
-course_file.write('<p> Last updated: ' + datetime.date.today().strftime("%d/%B/%Y\n") + '</p>\n')
+if __name__ == '__main__':
+    main()
