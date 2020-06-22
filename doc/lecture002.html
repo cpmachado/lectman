@@ -1,0 +1,24 @@
+<link rel="stylesheet" type="text/css" href="style.css">
+<title> Model </title>
+22/June/2020
+
+<hr/>
+
+<h1> Model </h1>
+<p> Given current status of project, and the only projected extension
+requirement, we essentially haven't got many entities or systems.</p>
+
+<ul>
+	<li><b>Lecture</b>: Basic unit of lectman, it represents the notes on a
+		given lecture.</li>
+	<li><b>Course</b>: A set of lectures, which aggregates semantically a given
+	set.</li>
+	<li><b>New Course Generator</b>: Generates a given course with no lectures,
+	associated with a given name.</li>
+	<li><b>New Lecture Generator</b>: Generates a given lecture associated to a
+	given course, and associates the lecture to it.</li>
+	<li><b>Archive Generator</b>: Generates a presentable index, based in the
+	course and its lectures.</li>
+	<li><b>Global index manager</b>: A centralized reference of course
+	repositories.</li>
+</ul>

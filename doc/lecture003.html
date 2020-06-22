@@ -1,0 +1,23 @@
+<link rel="stylesheet" type="text/css" href="style.css">
+<title> Architecture </title>
+22/June/2020
+
+<hr/>
+
+<h1> Architecture </h1>
+
+<p> Given our small model, there's almost a one to one correspondence to the
+previous developed work.</p>
+
+<ul>
+	<li> <b>lm_archive_course</b>: Implements Archive Generator. </li>
+	<li> <b>lm_new_course.py</b>: Implements Course Generator. </li>
+	<li> <b>lm_new_lecture.py</b>: Implements Lecture Generator. </li>
+	<li> A Course is implemented via a folder and a .ini file for its
+	index</li>
+	<li> A Lecture is implemented via a whole html file, within a course
+	directory</li>
+	<li> The global index is implemented via the data directory for the lectman
+	suite.</li>
+	<li> <b>lm_list.py</b>: Will implemented the listing index capability.</li>
+</ul>
