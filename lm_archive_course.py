@@ -40,7 +40,7 @@ def main():
     course_name = config['config']['course-name']
     course_list = config['course-index']
     try:
-        course_file = open(f'{course_name}-archive.html', 'w')
+        course_file = open('index.html', 'w')
     except OSError:
         sys.exit('Failed to create archive')
     course_file.write(archive_template(course_name, course_list))
