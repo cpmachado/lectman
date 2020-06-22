@@ -1,8 +1,11 @@
-# lecture-manager
+# lectman
 
-This was build by another person, to organize notes.
+This was built by another person, to organize notes.
 
 It is written with a Linux based FS and structure.
+
+This fork is a complete refactor aiming to provide more modularity, and
+develop a simpler architecture to extend functionality.
 
 # Scripts
 
