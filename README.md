@@ -45,7 +45,11 @@ lecture001.html  lecture002.html  network-service-management-archive.html  style
 ```
 This is how the archive looks like:
 
-![Image](http://i.imgur.com/4SOXvzj.png)
+![Image](https://raw.githubusercontent.com/cpmachado/lectman/master/images/index.png)
+
+This is how a typical note in simple html looks under lynx:
+
+![Image](https://raw.githubusercontent.com/cpmachado/lectman/master/images/req.png)
 
 ## Installing
 
