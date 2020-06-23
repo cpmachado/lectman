@@ -33,7 +33,7 @@ def main():
     if config.has_section('courses'):
         courses = config['courses']
         for i in courses:
-            print(f'{i} - {courses[i]}')
+            print(f'{i}\t{courses[i]}')
     else:
         print("There are no courses")
 

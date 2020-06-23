@@ -9,12 +9,14 @@ import datetime
 
 def lecture_template(lecture_title):
     """ define lecture html template """
-    style_sheet = '<link rel="stylesheet" type="text/css" href="style.css">'
     title = f'<title> {lecture_title} </title>'
+    style_sheet = '<link rel="stylesheet" type="text/css" href="style.css">'
+    meta_charset = '<meta charset="utf-8">'
     date = datetime.date.today().strftime("%d/%B/%Y\n")
     return '\n'.join([
-            style_sheet,
             title,
+            style_sheet,
+            meta_charset,
             date,
             '<hr/>'
         ])
