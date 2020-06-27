@@ -5,50 +5,63 @@
 import configparser
 import os
 import re
+import shutil
 import sys
 
+def get_data_folder():
+    """ get data folder """
+    if 'XDG_DATA_HOME' in os.environ:
+        xdg_path = os.environ['XDG_DATA_HOME']
+    else:
+        xdg_path = '/'.join([os.environ['HOME'], '.local/share'])
+
+    paths = [
+        f'{xdg_path}/lecture-manager',
+        '~/.lecture-manager',
+        '/usr/local/share/lecture-manager'
+    ]
+    paths = list(map(os.path.expanduser, paths))
+    try:
+        data = next(x for x in paths if os.path.exists(x))
+    except StopIteration:
+        return None
+    return data
 
 def get_index():
-    """ copy default style """
-    xdg_path = os.environ['XDG_DATA_HOME']
-    paths = [
-        f'{xdg_path}/lecture-manager/index.ini',
-        '/usr/local/share/lecture-manager/index.ini',
-        '~/.lecture-manager/index.ini'
-    ]
-    try:
-        index = next(x for x in paths if os.path.exists(os.path.expanduser(x)))
-    except StopIteration:
-        index = paths[0]
-    return index
+    """ get index """
+    data = get_data_folder()
+    if data is None:
+        return None
+    return f'{data}/index.ini'
 
-def copy_style(course_name):
-    """ copy default style """
-    xdg_path = os.environ['XDG_DATA_HOME']
-    paths = [
-        f'{xdg_path}/lecture-manager/style.css',
-        '/usr/local/share/lecture-manager/style.css',
-        '~/.lecture-manager/style.css'
-    ]
-    try:
-        style = next(x for x in paths if os.path.exists(os.path.expanduser(x)))
-    except StopIteration:
-        sys.exit('lectman not configured')
-    os.system(f'cp {style} ./{course_name}/')
+def get_style():
+    """ get style """
+    data = get_data_folder()
+    style = f'{data}/style.css'
+    if not os.path.exists(style):
+        return None
+    return style
 
 def main():
     """ main function for new course """
+    index = get_index()
+    if index is None:
+        sys.exit('lectman isn\'t configured')
+    style = get_style()
+    if style is None:
+        sys.exit('lectman installation missing style.css')
+
     if len(sys.argv) == 2:
         course_name = sys.argv[1]
     else:
         course_name = input('Course name: ')
-    # strip spaces
-    course_name = re.sub('\s+', '_', course_name)
+
+    course_name = re.sub(r'\s+', '_', course_name)
     if os.path.exists(course_name):
         sys.exit("Folder occupied")
-    # Create course directory
+
     os.mkdir(course_name)
-    copy_style(course_name)
+    shutil.copyfile(style, f'{course_name}/style.css')
 
     config_file_name = f'{course_name}/.config.ini'
     config = configparser.ConfigParser()
@@ -62,7 +75,7 @@ def main():
         config.write(config_file)
 
     # global index
-    config_file_name = get_index()
+    config_file_name = index
     config = configparser.ConfigParser()
     config.read(config_file_name)
     if not config.has_section('courses'):

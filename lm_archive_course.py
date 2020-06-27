@@ -34,7 +34,6 @@ def main():
     if not config.has_section('config') \
             or 'course-name' not in config['config'] \
             or not config.has_section('course-index'):
-        print('.config.ini or elements missing')
         sys.exit('missing elements')
 
     course_name = config['config']['course-name']
