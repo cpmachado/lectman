@@ -42,7 +42,11 @@ def main():
 
     lecture_file_name = f'lecture{str(lecture_number).zfill(3)}.html'
     lecture_file = open(lecture_file_name, 'w')
-    lecture_file.write(lecture_template(lecture_title, config['tags']))
+    if config.has_section('tags'):
+        tags = config['tags']
+    else:
+        tags = []
+    lecture_file.write(lecture_template(lecture_title, tags))
     config.set('course-index', str(lecture_number), lecture_title)
     with open('.config.ini', 'w') as config_file:
         config.write(config_file)
