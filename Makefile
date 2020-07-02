@@ -1,15 +1,15 @@
 .POSIX:
-.PHONY: install uninstall
+.PHONY: install uninstall lint
 
 PREFIX ?= /usr/local
 
 install:
 	mkdir -p ${PREFIX}/share/lecture-manager
 	cp style.css ${PREFIX}/share/lecture-manager/style.css
-	cp lm_archive_course.py ${PREFIX}/bin/lm-archive-course
-	cp lm_list.py ${PREFIX}/bin/lm-list
-	cp lm_new_course.py     ${PREFIX}/bin/lm-new-course
-	cp lm_new_lecture.py    ${PREFIX}/bin/lm-new-lecture
+	cp lectman/lm_archive_course.py ${PREFIX}/bin/lm-archive-course
+	cp lectman/lm_list.py ${PREFIX}/bin/lm-list
+	cp lectman/lm_new_course.py     ${PREFIX}/bin/lm-new-course
+	cp lectman/lm_new_lecture.py    ${PREFIX}/bin/lm-new-lecture
 	chmod +x ${PREFIX}/bin/lm-archive-course\
 	         ${PREFIX}/bin/lm-list\
 	         ${PREFIX}/bin/lm-new-course\
@@ -22,4 +22,5 @@ uninstall:
 	      ${PREFIX}/bin/lm-new-lecture
 
 lint:
-	pylint lm_archive_course.py lm_new_course.py lm_new_lecture.py
+	pylint setup.py
+	pylint lectman
